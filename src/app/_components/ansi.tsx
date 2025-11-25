@@ -1,6 +1,6 @@
 import Anser, { type AnserJsonEntry } from "anser";
 import { escapeCarriageReturn } from "escape-carriage";
-import React from "react";
+import React, { memo, useMemo } from "react";
 
 const colorMap: Record<string, string> = {
   "ansi-black": "text-[var(--black)]",
@@ -19,7 +19,7 @@ const colorMap: Record<string, string> = {
   "ansi-bright-magenta": "text-[var(--light-magenta)]",
   "ansi-bright-cyan": "text-[var(--light-cyan)]",
   "ansi-bright-white": "text-[var(--white)]",
-};
+} as const;
 
 const bgColorMap: Record<string, string> = {
   "ansi-black": "bg-transparent",
@@ -38,7 +38,7 @@ const bgColorMap: Record<string, string> = {
   "ansi-bright-magenta": "bg-[var(--light-magenta)]",
   "ansi-bright-cyan": "bg-[var(--light-cyan)]",
   "ansi-bright-white": "bg-[var(--white)]",
-};
+} as const;
 
 const decorationMap: Record<string, string> = {
   bold: "font-bold",
@@ -48,7 +48,7 @@ const decorationMap: Record<string, string> = {
   strikethrough: "line-through",
   underline: "underline",
   blink: "animate-pulse",
-};
+} as const;
 
 function fixBackspace(txt: string): string {
   let tmp = txt;
@@ -60,16 +60,16 @@ function fixBackspace(txt: string): string {
 }
 
 function createClass(bundle: AnserJsonEntry): string | null {
-  const classes = [];
+  const classes: string[] = [];
 
   if (bundle.bg && bgColorMap[bundle.bg]) {
-    classes.push(bgColorMap[bundle.bg]);
+    classes.push(bgColorMap[bundle.bg]!);
   }
   if (bundle.fg && colorMap[bundle.fg]) {
-    classes.push(colorMap[bundle.fg]);
+    classes.push(colorMap[bundle.fg]!);
   }
   if (bundle.decoration && decorationMap[bundle.decoration]) {
-    classes.push(decorationMap[bundle.decoration]);
+    classes.push(decorationMap[bundle.decoration]!);
   }
   return classes.length ? classes.join(" ") : null;
 }
@@ -79,30 +79,36 @@ interface Props {
   className?: string;
 }
 
-export default function Ansi({ className, children = "" }: Props) {
-  const input = escapeCarriageReturn(fixBackspace(children));
-  const bundles = Anser.ansiToJson(input, {
-    json: true,
-    remove_empty: true,
-    use_classes: true,
-  });
+const Ansi = memo(function Ansi({ className, children = "" }: Props) {
+  const bundles = useMemo(() => {
+    const input = escapeCarriageReturn(fixBackspace(children));
+    return Anser.ansiToJson(input, {
+      json: true,
+      remove_empty: true,
+      use_classes: true,
+    });
+  }, [children]);
+
+  const renderedContent = useMemo(
+    () =>
+      bundles.map((bundle, key) => {
+        const bundleClassName = createClass(bundle);
+        return (
+          <span key={key} className={bundleClassName ?? undefined}>
+            {bundle.content}
+          </span>
+        );
+      }),
+    [bundles],
+  );
 
   return (
     <div className="flex justify-center">
       <pre className={className ?? ""} style={{ textAlign: "left" }}>
-        <code>
-          {bundles.map((bundle, key) => {
-            const bundleClassName = createClass(bundle);
-
-            return (
-              <span key={key} className={bundleClassName ?? undefined}>
-                {bundle.content}
-              </span>
-            );
-          })}
-        </code>
+        <code>{renderedContent}</code>
       </pre>
     </div>
   );
-}
+});
 
+export default Ansi;

@@ -1,8 +1,8 @@
 import "~/styles/globals.css";
 
-import { type Metadata } from "next";
+import { type Metadata, type Viewport } from "next";
 
-import { TRPCReactProvider } from "~/trpc/react";
+// import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
   title: "Jet Pham",
@@ -13,13 +13,21 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#000000",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        {/* <TRPCReactProvider> */}
+        {children}
+        {/* </TRPCReactProvider> */}
       </body>
     </html>
   );

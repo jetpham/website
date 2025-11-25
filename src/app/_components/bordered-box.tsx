@@ -13,7 +13,7 @@ export function BorderedBox({
 }: BorderedBoxProps) {
   return (
     <fieldset
-      className={`my-[calc(2ch-2px)] border-2 border-white px-[calc(1.5ch-0.5px)] pb-[1ch] pt-0 ${className}`}
+      className={`mt-[2ch] border-2 border-white px-[calc(1.5ch-0.5px)] pb-[1ch] pt-0 ${className}`}
     >
       {label && (
         <legend className="-mx-[0.5ch] px-[0.5ch] text-white">
