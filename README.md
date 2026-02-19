@@ -8,7 +8,7 @@ Jet Pham's personal website. This website comes with a long story. The domain wa
 
 The site originally contained a blog. It was made in Next.js plainly with plain colors and no real style. I posted a few blogs about my life but eventually lost motivaiton and didn't like sharing it with other people after having been inspired by so many other cool websites.
 
-I started to become more obsessed with Rust and rewrote my website from being a blog into a static linktree site made in rust via WASM. It was in ASCII style using a modified fork of ratatui and had a fun implementation of Conways Game of Life in the background.
+I started to become more obsessed with Rust and rewrote my website from being a blog into a static linktree site made in rust via WASM. It was in ASCII style using a modified fork of ratzilla and had a fun implementation of Conways Game of Life in the background.
 
 After leaving that website alone, I started to make more web based projects in Next.js. I realized I could properly make this website awesome and still keep the interesting style in the site while making it more performant, responsive, and accessible. This is the state that you see the website in now.
 
@@ -23,12 +23,9 @@ Let me know if you have any feedback about the site!
 
 ## Tech Stack
 
-- [Next.js 15](https://nextjs.org) with Turbo mode
-- [Prisma](https://prisma.io) with PostgreSQL
+- [Next.js 16](https://nextjs.org) with Turbo mode
 - [Tailwind CSS v4](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
 - [TypeScript](https://www.typescriptlang.org/)
-- [React Query](https://tanstack.com/query)
 - [React 19](https://react.dev/)
 - Rust + WebAssembly (for Conway's Game of Life)
 - [Bun](https://bun.sh) (package manager)
@@ -38,9 +35,8 @@ Let me know if you have any feedback about the site!
 ### Prerequisites
 
 - Bun
-- Docker (or Podman)
 - Rust (for building the Conway's Game of Life WASM module)
-- wasm-pack (install via `curl https://drager.github.io/wasm-pack/installer/init.sh -sSf | sh` or use the install script)
+- wasm-pack (or use the install script)
 
 ### Getting Started
 
@@ -52,7 +48,7 @@ Let me know if you have any feedback about the site!
    bun run build:wasm
    ```
 
-   Or use the install script which will also install wasm-pack if needed:
+   Or use the install script:
 
    ```bash
    ./install.sh
@@ -64,30 +60,7 @@ Let me know if you have any feedback about the site!
    bun install
    ```
 
-4. Set up environment variables:
-
-   ```bash
-   cp .env.example .env.local
-   # Edit .env.local with your configuration
-   ```
-
-   Adjust the database URL as needed for your setup.
-
-5. Start the database:
-
-   ```bash
-   ./start-database.sh
-   ```
-
-   This script will start a PostgreSQL database in a Docker or Podman container. Make sure Docker or Podman is installed and running.
-
-6. Set up the database schema:
-
-   ```bash
-   bun run db:push
-   ```
-
-7. Start the development server:
+4. Start the development server:
 
    ```bash
    bun run dev
@@ -100,4 +73,5 @@ The site will be available at `http://localhost:3000`.
 ```
 src/ - Next.js app router pages
 cgol/ - Rust WASM module for Conway's Game of Life
+public/ - Static assets
 ```

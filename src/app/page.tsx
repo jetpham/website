@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-// import { HydrateClient } from "~/trpc/server";
 import { BorderedBox } from "./_components/bordered-box";
 import { FrostedBox } from "./_components/frosted-box";
 import Header from "./_components/header";
@@ -9,7 +8,6 @@ import FirstName from "~/assets/Jet.txt";
 
 export default async function Home() {
   return (
-    // <HydrateClient>
     <>
       <CgolCanvas />
       <main>
@@ -74,6 +72,5 @@ export default async function Home() {
         </div>
       </main>
     </>
-    // </HydrateClient>
   );
 }
