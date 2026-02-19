@@ -12,6 +12,7 @@ then
   source "$HOME/.cargo/env"
 else
   echo "Rustup already installed."
+  rustup target add wasm32-unknown-unknown
 fi
 
 # Install wasm-pack
