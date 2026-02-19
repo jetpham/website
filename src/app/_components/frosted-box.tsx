@@ -20,8 +20,8 @@ export function FrostedBox({
         className="pointer-events-none absolute inset-0 h-[200%]"
         style={{
           backgroundColor: "rgba(0, 0, 0, 0.75)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
           maskImage:
             "linear-gradient(to bottom, black 0% 50%, transparent 50% 100%)",
           WebkitMaskImage:

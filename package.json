@@ -49,5 +49,10 @@
   "ct3aMetadata": {
     "initVersion": "7.40.0"
   },
-  "overrides": {}
+  "overrides": {},
+  "knip": {
+    "ignore": [
+      "cgol/pkg/**"
+    ]
+  }
 }

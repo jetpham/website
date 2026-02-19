@@ -6,6 +6,11 @@ import Header from "./_components/header";
 import { CgolCanvas } from "./_components/cgol-canvas";
 import FirstName from "~/assets/Jet.txt";
 
+export const metadata = {
+  title: "Jet Pham - Software Extremist",
+  description: "Personal website of Jet Pham, a software extremist.",
+};
+
 export default async function Home() {
   return (
     <>
